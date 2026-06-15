@@ -19,3 +19,6 @@ def add_students(request):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors)
+
+def delete_student(request):
+    return Response("hai")

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Classes - School Management System{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container-fluid">
+        <h1><i class="fas fa-book"></i> Classes</h1>
+        <p>Select a class to view students</p>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-list"></i> All Classes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for item in class_stats %}
+                            <div class="col-md-4 col-sm-6 col-lg-3 mb-3">
+                                <a href="{% url 'student_list' item.class_no %}" class="text-decoration-none">
+                                    <div class="card border-0 h-100" style="transition: all 0.3s ease;">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-book fa-3x mb-2" style="color: #3498db;"></i>
+                                            <h5 class="card-title">Class {{ item.class_no }}</h5>
+                                            <p class="text-muted">
+                                                <strong style="font-size: 1.5rem; color: #3498db;">{{ item.count }}</strong>
+                                                <br>Students
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-4">
+        <div class="col-md-12">
+            <a href="{% url 'add_student' %}" class="btn btn-success btn-lg">
+                <i class="fas fa-user-plus"></i> Add New Student
+            </a>
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-lg">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

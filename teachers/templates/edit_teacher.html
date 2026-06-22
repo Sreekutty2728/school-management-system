@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Edit {{ teacher.name }} - School Management System{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container-fluid">
+        <h1><i class="fas fa-edit"></i> Edit Teacher</h1>
+        <p>Update teacher information</p>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-form"></i> Teacher Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'edit_teacher' teacher.id %}">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label"><i class="fas fa-user"></i> Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="name" required value="{{ teacher.name }}" placeholder="Enter teacher name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><i class="fas fa-envelope"></i> Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" required value="{{ teacher.email }}" placeholder="Enter teacher email">
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'teacher_detail' teacher.id %}" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-warning btn-lg">
+                                <i class="fas fa-save"></i> Update Teacher
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -14,19 +14,46 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import logging
 from django.contrib import admin
 from django.urls import path, include
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.db.models import Count
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+# Configure logger
+logger = logging.getLogger(__name__)
+
 
 def home(request):
-    return HttpResponse("School Management System Home Page")
+    logger.info(f"GET / - Home page request from {request.META.get('REMOTE_ADDR', 'Unknown')}")
+    from students.models import Student
+    from teachers.models import Teachers
+    
+    total_students = Student.objects.count()
+    total_teachers = Teachers.objects.count()
+    
+    logger.info(f"Home page - Total Students: {total_students}, Total Teachers: {total_teachers}")
+    
+    context = {
+        'total_students': total_students,
+        'total_teachers': total_teachers,
+    }
+    
+    logger.info(f"Home page context prepared: {list(context.keys())}")
+    return render(request, 'index.html', context)
+
 
 urlpatterns = [
-    path('admin/',admin.site.urls),
-    path('',home), 
-    path('teachers/',
-include('teachers.urls')),
-    path('students/',
-include('students.urls')),
-         
-     ]
+    path('admin/', admin.site.urls),
+    path('', home, name='home'),
+    path('teachers/', include('teachers.urls')),
+    path('students/', include('students.urls')),
+]
+
+urlpatterns += static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)

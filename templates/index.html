@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}Home - School Management System{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container-fluid">
+        <h1><i class="fas fa-graduation-cap"></i> Welcome to School Management System</h1>
+        <p>Efficiently manage students, teachers, and classes all in one place</p>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <!-- Hero Section Stats -->
+    <div class="row mb-5">
+        <div class="col-md-3 col-sm-6">
+            <div class="card border-0 text-center">
+                <div class="card-body">
+                    <h3 style="color: #3498db; font-size: 2.5rem; font-weight: bold;">{{ total_students }}</h3>
+                    <p class="text-muted">Total Students</p>
+                    <i class="fas fa-user-graduate fa-2x" style="color: #3498db; opacity: 0.5;"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card border-0 text-center">
+                <div class="card-body">
+                    <h3 style="color: #27ae60; font-size: 2.5rem; font-weight: bold;">{{ total_teachers }}</h3>
+                    <p class="text-muted">Total Teachers</p>
+                    <i class="fas fa-chalkboard-user fa-2x" style="color: #27ae60; opacity: 0.5;"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card border-0 text-center">
+                <div class="card-body">
+                    <h3 style="color: #f39c12; font-size: 2.5rem; font-weight: bold;">10</h3>
+                    <p class="text-muted">Total Classes</p>
+                    <i class="fas fa-book fa-2x" style="color: #f39c12; opacity: 0.5;"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card border-0 text-center">
+                <div class="card-body">
+                    <h3 style="color: #9b59b6; font-size: 2.5rem; font-weight: bold;">100%</h3>
+                    <p class="text-muted">System Status</p>
+                    <i class="fas fa-check-circle fa-2x" style="color: #9b59b6; opacity: 0.5;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Features Section -->
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <h2 class="mb-4"><i class="fas fa-star"></i> Key Features</h2>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x mb-3" style="color: #3498db;"></i>
+                    <h5 class="card-title">Student Management</h5>
+                    <p class="card-text">Easily manage student information, profiles, and academic details. Track enrollment and attendance records.</p>
+                    <a href="/students/dashboard/" class="btn btn-primary">
+                        <i class="fas fa-arrow-right"></i> Go to Students
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-chalkboard-user fa-3x mb-3" style="color: #27ae60;"></i>
+                    <h5 class="card-title">Teacher Management</h5>
+                    <p class="card-text">Manage teacher information, qualifications, and assignments. Organize faculty efficiently.</p>
+                    <a href="/teachers/list/" class="btn btn-success">
+                        <i class="fas fa-arrow-right"></i> Go to Teachers
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-3x mb-3" style="color: #f39c12;"></i>
+                    <h5 class="card-title">Class Management</h5>
+                    <p class="card-text">Organize classes, assign teachers, and manage student enrollment. View class statistics and details.</p>
+                    <a href="/students/classes/" class="btn btn-warning">
+                        <i class="fas fa-arrow-right"></i> Go to Classes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <h2 class="mb-4"><i class="fas fa-bolt"></i> Quick Actions</h2>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header bg-primary">
+                    <h5 class="mb-0 text-white"><i class="fas fa-user-graduate"></i> Student Actions</h5>
+                </div>
+                <div class="card-body">
+                    <a href="/students/add-student/" class="btn btn-primary w-100 mb-2">
+                        <i class="fas fa-user-plus"></i> Add New Student
+                    </a>
+                    <a href="/students/classes/" class="btn btn-info w-100 mb-2">
+                        <i class="fas fa-list"></i> View All Classes
+                    </a>
+                    <a href="/students/dashboard/" class="btn btn-secondary w-100">
+                        <i class="fas fa-chart-line"></i> Student Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header bg-success">
+                    <h5 class="mb-0 text-white"><i class="fas fa-chalkboard-user"></i> Teacher Actions</h5>
+                </div>
+                <div class="card-body">
+                    <a href="/teachers/add-teacher/" class="btn btn-success w-100 mb-2">
+                        <i class="fas fa-user-plus"></i> Add New Teacher
+                    </a>
+                    <a href="/teachers/list/" class="btn btn-info w-100 mb-2">
+                        <i class="fas fa-list"></i> View All Teachers
+                    </a>
+                    <a href="/admin/" class="btn btn-secondary w-100">
+                        <i class="fas fa-cog"></i> Admin Panel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Updates Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4"><i class="fas fa-clock"></i> System Information</h2>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-muted">System Status</h6>
+                            <p class="lead"><span class="badge bg-success">Online</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Last Updated</h6>
+                            <p class="lead">Today</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="text-muted">Features Available</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><i class="fas fa-check text-success"></i> Student Management</li>
+                                <li class="list-group-item"><i class="fas fa-check text-success"></i> Teacher Management</li>
+                                <li class="list-group-item"><i class="fas fa-check text-success"></i> Class Management</li>
+                                <li class="list-group-item"><i class="fas fa-check text-success"></i> Dynamic Data Retrieval</li>
+                                <li class="list-group-item"><i class="fas fa-check text-success"></i> Responsive Design</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+</style>
+{% endblock %}

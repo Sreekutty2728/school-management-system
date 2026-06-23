@@ -18,18 +18,47 @@
                     <h5 class="mb-0"><i class="fas fa-form"></i> Teacher Information Form</h5>
                 </div>
                 <div class="card-body">
+                     {% if errors %}
+    <div class="alert alert-danger">
+        {% for field, messages in errors.items %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
                     <form method="POST" action="{% url 'add_teacher' %}">
                         {% csrf_token %}
+                <div class="mb-3">
+    <label for="name" class="form-label">
+        <i class="fas fa-user"></i> Full Name
+        <span class="text-danger">*</span>
+    </label>
 
-                        <div class="mb-3">
-                            <label for="name" class="form-label"><i class="fas fa-user"></i> Full Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-lg" id="name" name="name" required placeholder="Enter teacher name">
-                        </div>
+    <input type="text"
+           class="form-control form-control-lg"
+           id="name"
+           name="name"
+           required
+           placeholder="Enter teacher name">
 
+    <small id="nameError" class="text-danger"></small>
+</div>
                         <div class="mb-3">
-                            <label for="email" class="form-label"><i class="fas fa-envelope"></i> Email Address <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control form-control-lg" id="email" name="email" required placeholder="Enter teacher email">
-                        </div>
+    <label for="email" class="form-label">
+        <i class="fas fa-envelope"></i> Email Address
+        <span class="text-danger">*</span>
+    </label>
+
+    <input type="email"
+           class="form-control form-control-lg"
+           id="email"
+           name="email"
+           required
+           placeholder="Enter teacher email">
+
+    <small id="emailError" class="text-danger"></small>
+</div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a href="{% url 'teacher_list' %}" class="btn btn-secondary btn-lg">
@@ -45,4 +74,42 @@
         </div>
     </div>
 </div>
+
+<script>
+const nameField = document.getElementById("name");
+const emailField = document.getElementById("email");
+
+const nameError = document.getElementById("nameError");
+const emailError = document.getElementById("emailError");
+
+nameField.addEventListener("input", function() {
+
+    const namePattern = /^[A-Za-z\s]+$/;
+
+    if (this.value === "") {
+        nameError.innerText = "";
+    }
+    else if (!namePattern.test(this.value)) {
+        nameError.innerText = "Only letters are allowed";
+    }
+    else {
+        nameError.innerText = "";
+    }
+});
+
+emailField.addEventListener("input", function() {
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (this.value === "") {
+        emailError.innerText = "";
+    }
+    else if (!emailPattern.test(this.value)) {
+        emailError.innerText = "Enter a valid email address";
+    }
+    else {
+        emailError.innerText = "";
+    }
+});
+</script>
 {% endblock %}

@@ -1,3 +1,4 @@
+from .forms import StudentForm
 import logging
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Count
@@ -143,48 +144,31 @@ def student_detail(request, id):
 
 
 # Add Student Page
-def add_student_page(request):
-    logger.info(f"{request.method} /students/add-student/ - Request from {request.META.get('REMOTE_ADDR', 'Unknown')}")
+def add_student(request):
+    logger.info(f"{request.method} /students/add/ - Add student request")
     
     if request.method == 'POST':
-        logger.info(f"Processing POST request for add student")
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        student_class = request.POST.get('student_class')
-        roll_number = request.POST.get('roll_number', '')
-        register_number = request.POST.get('register_number', '')
-        age = request.POST.get('age', '')
-        phone = request.POST.get('phone', '')
-        address = request.POST.get('address', '')
-        profile_image = request.FILES.get('profile_image', None)
+        logger.info(f"Processing POST request for adding student")
+        form = StudentForm(request.POST, request.FILES)
         
-        logger.info(f"Student form data - Name: {name}, Email: {email}, Class: {student_class}")
-        logger.info(f"Additional data - Roll: {roll_number}, Register: {register_number}, Age: {age}")
-        if profile_image:
-            logger.info(f"Profile image uploaded: {profile_image.name}")
+        if form.is_valid():
+            student = form.save()
+            logger.info(f"Student {student.name} added successfully with ID: {student.id}")
+            return redirect(f'/students/{student.id}/')
+        else:
+            logger.warning(f"Form validation failed with errors: {form.errors}")
+    else:
+        form = StudentForm()
+        logger.info(f"Rendering empty form for adding new student")
 
-        student = Student(
-            name=name,
-            email=email,
-            student_class=student_class,
-            roll_number=roll_number if roll_number else None,
-            register_number=register_number if register_number else None,
-            age=age if age else None,
-            phone=phone if phone else None,
-            address=address if address else None,
-            profile_image=profile_image if profile_image else None
-        )
-        student.save()
-        logger.info(f"Student created successfully - ID: {student.id}, Name: {student.name}")
-        return redirect(f'/students/{student.id}/')
-
-    logger.info(f"Rendering add student form")
     context = get_context_data()
-    context.update({'classes': range(1, 11)})
-    logger.info(f"Add student context prepared with {len(list(range(1, 11)))} classes")
+    context.update({
+    'form': form,
+    'classes': range(1, 11)
+})
+    logger.info(f"Add student context prepared")
     return render(request, 'add_student.html', context)
-
-
+    
 # Edit Student Page
 def edit_student(request, id):
     logger.info(f"{request.method} /students/edit/{id}/ - Edit student request for ID: {id}")

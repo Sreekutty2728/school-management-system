@@ -20,6 +20,12 @@
                 <div class="card-body">
                     <form method="POST" action="{% url 'add_student' %}" enctype="multipart/form-data">
                         {% csrf_token %}
+                        {% if form.errors %}
+    <div class="alert alert-danger">
+        <strong>Please correct the following errors:</strong>
+        {{ form.errors }}
+    </div>
+    {% endif %}
 
                         <div class="row">
                             <div class="col-md-6 mb-3">

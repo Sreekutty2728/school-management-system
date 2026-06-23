@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 import logging
 from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework.decorators import api_view
@@ -93,9 +94,18 @@ def add_teacher_page(request):
             name=name,
             email=email
         )
-        teacher.save()
-        logger.info(f"Teacher created successfully - ID: {teacher.id}, Name: {teacher.name}")
-        return redirect(f'/teachers/{teacher.id}/')
+        try:
+           teacher.full_clean()
+           teacher.save()
+
+           logger.info(f"Teacher created successfully - ID: {teacher.id}, Name: {teacher.name}")
+
+           return redirect(f'/teachers/{teacher.id}/')
+
+        except ValidationError as e:
+            context = get_context_data()
+            context['errors'] = e.message_dict
+            return render(request, 'add_teacher.html', context)
 
     logger.info(f"Rendering add teacher form")
     context = get_context_data()

@@ -5,6 +5,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Teachers
 from .serializers import TeacherSerializer
+from django.shortcuts import render
+
+def login_page(request):
+    return render(request, 'login.html')
 
 # Configure logger
 logger = logging.getLogger(__name__)

@@ -27,6 +27,21 @@ from django.conf.urls.static import static
 logger = logging.getLogger(__name__)
 
 
+def login_page(request):
+    return render(request, 'login.html')
+
+def admin_dashboard(request):
+    from students.models import Student
+    from teachers.models import Teachers
+
+    context = {
+        'total_students': Student.objects.count(),
+        'total_teachers': Teachers.objects.count(),
+    }
+
+    return render(request, 'admin_dashboard.html', context)
+
+
 def home(request):
     logger.info(f"GET / - Home page request from {request.META.get('REMOTE_ADDR', 'Unknown')}")
     from students.models import Student
@@ -48,7 +63,8 @@ def home(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),
+    path('', login_page, name='login'),
+    path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
     path('teachers/', include('teachers.urls')),
     path('students/', include('students.urls')),
 ]

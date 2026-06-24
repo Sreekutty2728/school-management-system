@@ -388,21 +388,17 @@
                     </li>
                 </ul>
                 
-                <!-- Live Stats in Navbar -->
-                <div class="navbar-stats">
-                    <div class="stat-item" title="Total Students">
-                        <i class="fas fa-user-graduate"></i>
-                        <span>Students: <span class="stat-count">{{ total_students }}</span></span>
-                    </div>
-                    <div class="stat-item" title="Total Teachers">
-                        <i class="fas fa-chalkboard-user"></i>
-                        <span>Teachers: <span class="stat-count">{{ total_teachers }}</span></span>
-                    </div>
-                    <div class="stat-item" title="Total Classes">
-                        <i class="fas fa-book"></i>
-                        <span>Classes: <span class="stat-count">10</span></span>
-                    </div>
-                </div>
+                <form class="d-flex" role="search">
+    <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search Student or Teacher"
+        aria-label="Search">
+
+    <button class="btn btn-light" type="submit">
+        <i class="fas fa-search"></i>
+    </button>
+</form>
             </div>
         </div>
     </nav>

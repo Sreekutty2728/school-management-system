@@ -1,3 +1,5 @@
+from django.db.models import Q
+from teachers.models import Teachers
 from .forms import StudentForm
 import logging
 from django.shortcuts import render, get_object_or_404, redirect
@@ -66,15 +68,34 @@ def delete_student(request, id):
 
 # Dashboard Page
 def dashboard(request):
-    logger.info(f"GET /students/dashboard/ - Dashboard request from {request.META.get('REMOTE_ADDR', 'Unknown')}")
     context = get_context_data()
+
+    query = request.GET.get('q', '')
+
+    students = Student.objects.none()
+    teachers = Teachers.objects.none()
+
+    if query:
+        students = Student.objects.filter(
+            Q(name__icontains=query) |
+            Q(register_number__icontains=query) |
+            Q(roll_number__icontains=query)
+        )
+
+        teachers = Teachers.objects.filter(
+            Q(name__icontains=query)
+        )
+
     recent_students = Student.objects.all()[:5]
-    logger.info(f"Retrieved {len(recent_students)} recent students")
+
     context.update({
         'total_classes': 10,
         'recent_students': recent_students,
+        'query': query,
+        'students': students,
+        'teachers': teachers,
     })
-    logger.info(f"Dashboard context prepared: {list(context.keys())}")
+
     return render(request, 'dashboard.html', context)
 
 

@@ -3,14 +3,33 @@
 {% block title %}Dashboard - School Management System{% endblock %}
 
 {% block content %}
+<div style="background: yellow; padding: 10px;">
+    SEARCH BAR TEST
+</div>
 <div class="page-header">
     <div class="container-fluid">
-        <h1><i class="fas fa-chart-line"></i> Dashboard</h1>
+        <h1 style="color:red;">MY DASHBOARD TEST</h1>
         <p>Welcome to School Management System Dashboard</p>
+        <form method="GET" class="mb-4">
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="q"
+                    class="form-control"
+                    placeholder="Search Student Name, Roll No, Register No or Teacher Name"
+                    value="{{ query }}"
+                >
+                <button type="submit" class="btn btn-primary">
+                    Search
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
 <div class="container-fluid">
+   
+
     <!-- Stats Cards Row -->
     <div class="row mb-4">
         <div class="col-md-3 col-sm-6">

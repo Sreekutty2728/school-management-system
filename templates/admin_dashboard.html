@@ -8,10 +8,27 @@
 <body>
 
 <div class="container mt-5">
+     <div class="d-flex justify-content-between align-items-center">
+        <h1>🏫 Administrator Dashboard</h1>
 
-    <h1>🏫 Administrator Dashboard</h1>
+        <form method="GET" action="">
+            <div class="input-group" style="width:350px;">
+                <input
+                    type="text"
+                    name="q"
+                    class="form-control"
+                    placeholder="Search Student / Teacher"
+                >
+                <button type="submit" class="btn btn-primary">
+                    Search
+                </button>
+            </div>
+        </form>
+    </div>
 
     <hr>
+
+    
 
     <div class="row g-3">
 
@@ -44,7 +61,7 @@
     <div class="card shadow">
         <div class="card-body">
             <h5>Total Parents</h5>
-            <h2>0</h2>
+            <h2>{{ total_parents }}</h2>
         </div>
     </div>
 </div>
@@ -52,7 +69,7 @@
     <div class="card shadow">
         <div class="card-body">
             <h5>Total Staff</h5>
-            <h2>0</h2>
+            <h2>{{ total_staff }}</h2>
         </div>
     </div>
 </div>
@@ -64,6 +81,7 @@
 <hr>
 
 <h3>Quick Actions</h3>
+
 <div class="row mt-3">
 
     <div class="col-md-3">
@@ -73,7 +91,7 @@
     </div>
 
     <div class="col-md-3">
-        <a href="/students/list/" class="btn btn-success w-100">
+        <a href="/students/classes/" class="btn btn-success w-100">
             View Students
         </a>
     </div>
@@ -88,6 +106,31 @@
         <a href="/teachers/list/" class="btn btn-info w-100">
             View Teachers
         </a>
+    </div>
+
+    <div class="col-md-3 mt-3">
+        <a href="/parents/add-parent/" class="btn btn-secondary w-100">
+            Add Parent
+        </a>
+    </div>
+
+    <div class="col-md-3 mt-3">
+        <a href="/parents/list/" class="btn btn-dark w-100">
+            View Parents
+        </a>
+    </div>
+
+    <div class="col-md-3 mt-3">
+        <a href="/staff/add-staff/" class="btn btn-danger w-100">
+            Add Staff
+        </a>
+    </div>
+
+    <div class="col-md-3 mt-3">
+        <a href="/staff/list/" class="btn btn-success w-100">
+            View Staff
+        </a>
+</div>
     </div>
 
 </div>

@@ -33,12 +33,15 @@ def login_page(request):
 def admin_dashboard(request):
     from students.models import Student
     from teachers.models import Teachers
+    from parents.models import Parent
+    from staff.models import Staff
 
     context = {
         'total_students': Student.objects.count(),
         'total_teachers': Teachers.objects.count(),
-    }
-
+        'total_parents': Parent.objects.count(),
+        'total_staff': Staff.objects.count(),
+    } 
     return render(request, 'admin_dashboard.html', context)
 
 
@@ -67,6 +70,8 @@ urlpatterns = [
     path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
     path('teachers/', include('teachers.urls')),
     path('students/', include('students.urls')),
+    path('parents/', include('parents.urls')),
+    path('staff/', include('staff.urls')),
 ]
 
 urlpatterns += static(

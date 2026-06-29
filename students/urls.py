@@ -11,6 +11,7 @@ path('add/', views.add_students),
 # Dashboard UI URLs
 path('dashboard/', views.dashboard, name='dashboard'),
 path('classes/', views.class_list, name='class_list'),
+path('list/', views.student_list, name='student_list_all'),
 path('class/<str:class_no>/', views.student_list, name='student_list'),
 
 path(
